@@ -3,12 +3,23 @@ import { Field, reduxForm } from 'redux-form';
 
 // class based component because we need some helper functions in-here
 class StreamCreate extends React.Component {
-    renderInput({ input, label, meta }) {
+    renderError({ error, touched }) {
+        if (touched && error) {
+            return (
+                <div className="ui error message">
+                    <div className="header">{error}</div>
+                </div>
+            );
+        }
+    }
+
+    renderInput = ({ input, label, meta }) => {
+        const className = `field ${meta.error && meta.touched ? 'error': ''}`;
         return (
-            <div className="field">
+            <div className={className}>
                 <label>{label}</label>
                 <input {...input} autoComplete='off' />
-                <div>{meta.error}</div>
+                {this.renderError(meta)}
             </div>
 
         );
@@ -17,17 +28,17 @@ class StreamCreate extends React.Component {
 
 
     onSubmit(formValues) {
-     console.log(formValues);
+        console.log(formValues);
     }
 
     render() {
         return (
-            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form">
+            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
                 {/*Field is some form of input, it may be text, checkbox, radio etc..
         name here is the property that this Field is going to manage*/}
                 <Field name="title" component={this.renderInput} label="Title" />
                 <Field name="description" component={this.renderInput} label="Description" />
-                <button className="ui button primary">Submit</button>
+                <button className="ui inverted primary button">Submit</button>
             </form>
         )
 
