@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createStream } from '../../actions'
 
 // class based component because we need some helper functions in-here
 class StreamCreate extends React.Component {
@@ -14,7 +16,7 @@ class StreamCreate extends React.Component {
     }
 
     renderInput = ({ input, label, meta }) => {
-        const className = `field ${meta.error && meta.touched ? 'error': ''}`;
+        const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
         return (
             <div className={className}>
                 <label>{label}</label>
@@ -27,8 +29,8 @@ class StreamCreate extends React.Component {
     }
 
 
-    onSubmit(formValues) {
-        console.log(formValues);
+    onSubmit = (formValues) => {
+        this.props.createStream(formValues);
     }
 
     render() {
@@ -62,10 +64,14 @@ const validate = (formValues) => {
 
 
 // reduxForm has similar functionality to connect function method
-export default reduxForm({
+const formWrapped = reduxForm({
     form: 'streamCreate',
     validate
 })(StreamCreate);
 
 // All the props in-here are part of the automatic system that is going to be used to--
 // get form values into a element and then get changes back out and update the redux-form reducer
+
+
+export default connect(null, { createStream })(formWrapped);
+
