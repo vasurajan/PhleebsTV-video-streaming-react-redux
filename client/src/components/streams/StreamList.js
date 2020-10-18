@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { fetchStreams } from '../../actions';
 
@@ -10,12 +10,14 @@ class StreamList extends React.Component {
     }
 
     renderAdmin(stream) {
-        if(stream.userId === this.props.currentUserId){
+        if (stream.userId === this.props.currentUserId) {
             return (
                 <div className="right floated content">
-                
-                <Link to={`/streams/edit/${stream.id}`} className="ui inverted button primary">EDIT</Link>
-                <button className="ui inverted red button">DELETE</button>
+
+                    <Link to={`/streams/edit/${stream.id}`} className="ui inverted button primary">
+                        EDIT
+                </Link>
+                    <Link to={`/streams/delete/${stream.id}`} className="ui inverted red button">DELETE</Link>
                 </div>
             )
         }
@@ -26,10 +28,12 @@ class StreamList extends React.Component {
         return this.props.streams.map(stream => {
             return (
                 <div className="item" key={stream.id}>
-                {this.renderAdmin(stream)}
+                    {this.renderAdmin(stream)}
                     <i className="video icon" />
                     <div className="content">
-                        {stream.title}
+                        <Link to={`/streams/${stream.id}`} className="header">
+                            {stream.title}
+                        </Link>
                         <div className="description">{stream.description}</div>
                     </div>
                 </div>
@@ -37,16 +41,16 @@ class StreamList extends React.Component {
         });
     }
 
-    renderCreate(){
-        if(this.props.isSignedIn) {
-           return (
-               <div style={{textAlign: "right"}}>
-               <Link to="/streams/new" className="ui right labeled icon button inverted green">
-               <i class="right arrow icon"></i>
+    renderCreate() {
+        if (this.props.isSignedIn) {
+            return (
+                <div style={{ textAlign: "right" }}>
+                    <Link to="/streams/new" className="ui right labeled icon button inverted green">
+                        <i class="right arrow icon"></i>
                  Create Stream
                </Link>
-               </div>
-           )
+                </div>
+            )
         }
     }
 
