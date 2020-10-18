@@ -4,6 +4,29 @@
       "title": "My title",
       "description": "this is a stream",
       "id": 1
+    },
+    {
+      "title": "Others Stream",
+      "description": "Some other Stream",
+      "id": 2
+    },
+    {
+      "title": "user id guy",
+      "description": "this was created by me",
+      "userId": "113446984312525481472",
+      "id": 3
+    },
+    {
+      "title": "Programmatic Navigation",
+      "description": "Not expected to be seen on form page",
+      "userId": "113446984312525481472",
+      "id": 4
+    },
+    {
+      "title": "Expected?",
+      "description": "yeah, this was expected?",
+      "userId": "113446984312525481472",
+      "id": 5
     }
   ]
 }
